@@ -73,7 +73,10 @@ client.recognizePrintedTextWithHttpOperationResponse(detectOrientation, url)
 ```
 
 ### Run your Node JS app
-- Run `node app.js` and check that your app correctly recognized your text
-
-![test.png](/computervision/test.png)
+- Run `node app.js` and check that your app correctly recognized your text  
 ![computer-vision_03.png](/wiki/assets/computer-vision_03.png)
+
+
+- *Source image*  
+![test.png](/computervision/test.png)
+
