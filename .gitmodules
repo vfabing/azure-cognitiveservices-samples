@@ -1,0 +1,3 @@
+[submodule "luis/luis-node"]
+	path = luis/luis-node
+	url = https://github.com/vfabing/Cognitive-LUIS-Node.js.git
