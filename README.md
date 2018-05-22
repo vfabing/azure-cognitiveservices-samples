@@ -13,6 +13,8 @@ https://azure.microsoft.com/en-us/free/
 ## Computer Vision
 - [Create a Computer Vision service on Azure](#create-a-computer-vision-service-on-azure)
 - [Create a Node JS app](#create-a-node-js-app)
+- [Run your Node JS app](#run-your-node-js-app)
+
 ### Create a Computer Vision service on Azure
 - Connect to Azure Portal: https://portal.azure.com
 - Create a new Computer Vision service
