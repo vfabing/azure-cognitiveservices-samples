@@ -1,6 +1,9 @@
 # node-azure-cognitiveservices-samples
 This repository show how to use Azure Cognitive Services with Node JS in just a few lines of code.
 
+- [Computer Vision](#computer-vision)
+- [Speech Services]()
+
 ## Prerequisites
 All of these demo require a *Microsoft Azure Subscription*.
 You can get a **free** Azure Account and get access to **free** Cognitive Services :
@@ -18,8 +21,10 @@ https://azure.microsoft.com/en-us/free/
 ### Create a Computer Vision service on Azure
 - Connect to Azure Portal: https://portal.azure.com
 - Create a new Computer Vision service
+
 ![computer-vision_01.png](/wiki/assets/computer-vision_01.png)
 - Get your Computer Vision API Keys
+
 ![computer-vision_02.png](/wiki/assets/computer-vision_02.png)
 
 ### Create a Node JS app
@@ -75,10 +80,143 @@ client.recognizePrintedTextWithHttpOperationResponse(detectOrientation, url)
 ```
 
 ### Run your Node JS app
-- Run `node app.js` and check that your app correctly recognized your text  
+- Run `node app.js` and check that your app correctly recognized your text
+
 ![computer-vision_03.png](/wiki/assets/computer-vision_03.png)
 
 
-- *Source image*  
+- *Source image*
+
 ![test.png](/computervision/test.png)
 
+## Speech Services
+- [Create a Speech Service on Azure]()
+- [Create a Node.js app]()
+- [Run your Node.js app]()
+- [Annexe: Windows Node Sound Player sample]()
+
+### Create a Speech Service on Azure
+### Create a Computer Vision service on Azure
+- Connect to Azure Portal: https://portal.azure.com
+- Create a new Speech service
+
+![speech_01.png](/wiki/assets/speech_01.png)
+- Get your Computer Vision API Keys
+
+![speech_02.png](/wiki/assets/speech_02.png)
+
+### Create a Node JS app
+- Create a package.json file with `npm init -f`
+- Install the following dependencies:
+  - `npm i request` to connect to Cognitive Services using http requests
+  - `npm i fs` to get access to the file system (and especially to be able to save the sound file and read it)
+  - *(optional)* `npm i edge-js` to be able to play the sound file on Windows (You can use `wav` package for Linux)
+- Create a new `speechRequest.xml` file to describe the target voice and add the following XML lines
+```xml
+<speak version="1.0" xml:lang="en-us">
+  <voice xml:lang="en-us" xml:gender="Female" name="Microsoft Server Speech Text to Speech Voice (en-US, ZiraRUS)">
+    <!-- Other voices available at https://docs.microsoft.com/en-us/azure/cognitive-services/speech/api-reference-rest/bingvoiceoutput#SupLocales -->
+    This is a demo to call Microsoft text to speech service.
+  </voice>
+</speak>
+```
+- Create a new `sound.js` file and implement a way to play some sound file (Windows sample at the end of the tutorial)
+- Create a new `app.js` file and add the following lines of code
+- Import modules
+``` JavaScript
+const request = require('request');
+const fs = require('fs');
+const winSound = require('./sound.js');
+```
+  - Configure the service with the Speech Services API Key, the Azure region where the service was created.
+``` JavaScript
+let serviceKey = "{{MY_SERVICE_KEY}}";
+let azureRegion = "northeurope";
+```
+  - Read the `speechRequest.xml` file and store it into a string
+```JavaScript
+let speechRequest = "";
+fs.readFile('speechRequest.xml', 'utf8', function(err, data){
+  if(err) throw err;
+  console.log(data);
+  speechRequest = data;
+});
+```
+  - Authenticate your application by using your Speech Services API Key, and retrieve your Authentication Token
+``` JavaScript
+request.post({
+  url: `https://${azureRegion}.api.cognitive.microsoft.com/sts/v1.0/issueToken`,
+  headers: {
+    'Content-type' : 'application/x-www-form-urlencoded',
+    'Content-Length' : '0',
+    'Ocp-Apim-Subscription-Key' : serviceKey
+  }
+}, function (err, resp, access_token) {
+  if (err || resp.statusCode != 200){
+    console.log(err, resp.body);
+  } else {
+    // Do Something
+  }
+});
+```
+  - Call then the Speech Services API using the previously retrieved token client, and your xml speech request
+``` JavaScript
+    try {
+      request.post({
+        url: `https://${azureRegion}.tts.speech.microsoft.com/cognitiveservices/v1`,
+        body: speechRequest,
+        headers: {
+          'Content-type' : 'application/ssml+xml',
+          'X-Microsoft-OutputFormat' : 'riff-24khz-16bit-mono-pcm',
+          'Authorization': 'Bearer ' + access_token,
+          'User-Agent': 'myapp'
+        },
+        encoding: null
+      }, function(err, resp, speak_data) {
+        if (err || resp.statusCode != 200){
+          console.log(err, resp.body);
+        } else {
+          // Do Something
+        }
+      });
+    } catch(e) {
+      console.log(e.message);
+    }
+```
+  - Then do something with the result return from the Speech Services API, such as writing the file on your local disk, and read it.
+```JavaScript
+          try {
+            let file = require('path').join('speech.wav');
+            let wstream = fs.createWriteStream(file);
+            wstream.write(speak_data, () =>{
+              sound.Play('speech.wav');
+            });
+          } catch (e) {
+            console.log(e.message);
+          }
+```
+
+### Run your Node JS app
+- Run `node app.js` and check that your app correctly played your text
+
+![speech_03.png](/wiki/assets/speech_03.png)
+
+### Annexe: Windows Node Sound Player sample
+``` JavaScript
+var edge = require('edge-js');
+
+exports.Play = function Play(file){
+  var play = edge.func(function() {/*
+    async (input) => {
+        return await Task.Run<object>(async () => {
+            var player = new System.Media.SoundPlayer((string)input);
+            player.PlaySync();
+            return null;
+        });
+    }
+*/});
+  play(file, function (err) {
+      if (err) throw err;
+  });
+}
+```

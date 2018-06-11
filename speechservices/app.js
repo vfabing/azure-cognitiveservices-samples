@@ -1,23 +1,25 @@
 // Imports
-var winSound = require('./winSound.js')
-var request = require('request');
-var xmlbuilder = require('xmlbuilder');
-var fs = require('fs');
+const request = require('request');
+const fs = require('fs');
+const sound = require('./sound.js');
 
 // Configuration
-var serviceKey = "{{MY_SPEECH_SERVICES_KEY}}";
+let serviceKey = "{{MY_SPEECH_SERVICES_KEY}}";
+let azureRegion = "northeurope";
 
 // Request
-var speechRequestXml = xmlbuilder
-  .create('speak').att('version', '1.0').att('xml:lang', 'en-us')
-  .ele('voice').att('xml:lang', 'en-us').att('xml:gender', 'Female').att('name', 'Microsoft Server Speech Text to Speech Voice (en-US, ZiraRUS)')
-  .txt('This is a demo to call Microsoft text to speech service.')
-  .end();
-var speechRequest = speechRequestXml.toString();
+let speechRequest = "";
+fs.readFile('speechRequest.xml', 'utf8', function(err, data){
+  if(err) throw err;
+  console.log(data);
+  speechRequest = data;
+});
 
 request.post({
-  url: "https://westus.api.cognitive.microsoft.com/sts/v1.0/issueToken",
+  url: `https://${azureRegion}.api.cognitive.microsoft.com/sts/v1.0/issueToken`,
   headers: {
+    'Content-type' : 'application/x-www-form-urlencoded',
+    'Content-Length' : '0',
     'Ocp-Apim-Subscription-Key' : serviceKey
   }
 }, function (err, resp, access_token) {
@@ -26,15 +28,13 @@ request.post({
   } else {
     try {
       request.post({
-        url: "https://westus.tts.speech.microsoft.com/cognitiveservices/v1",
+        url: `https://${azureRegion}.tts.speech.microsoft.com/cognitiveservices/v1`,
         body: speechRequest,
         headers: {
-          'content-type' : 'application/ssml+xml',
+          'Content-type' : 'application/ssml+xml',
           'X-Microsoft-OutputFormat' : 'riff-24khz-16bit-mono-pcm',
           'Authorization': 'Bearer ' + access_token,
-          'X-Search-AppId': '07D3234E49CE426DAA29772419F41988',
-          'X-Search-ClientID': '1ECFAE91408841A480F00935DC391988',
-          'User-Agent': 'TTSNodeJSvfa'
+          'User-Agent': 'myapp'
         },
         encoding: null
       }, function(err, resp, speak_data) {
@@ -42,10 +42,10 @@ request.post({
           console.log(err, resp.body);
         } else {
           try {
-            var file = require('path').join('speech.wav');
-            var wstream = fs.createWriteStream(file);
+            let file = require('path').join('speech.wav');
+            let wstream = fs.createWriteStream(file);
             wstream.write(speak_data, () =>{
-              winSound.Play('speech.wav');
+              sound.Play('speech.wav');
             });
           } catch (e) {
             console.log(e.message);

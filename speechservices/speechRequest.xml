@@ -1,0 +1,6 @@
+<speak version="1.0" xml:lang="en-us">
+  <voice xml:lang="en-us" xml:gender="Female" name="Microsoft Server Speech Text to Speech Voice (en-US, ZiraRUS)">
+    <!-- Other voices available at https://docs.microsoft.com/en-us/azure/cognitive-services/speech/api-reference-rest/bingvoiceoutput#SupLocales -->
+    This is a demo to call Microsoft text to speech service.
+  </voice>
+</speak>
