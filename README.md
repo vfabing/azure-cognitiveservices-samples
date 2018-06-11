@@ -2,7 +2,7 @@
 This repository show how to use Azure Cognitive Services with Node JS in just a few lines of code.
 
 - [Computer Vision](#computer-vision)
-- [Speech Services]()
+- [Speech Services](#speech-services)
 
 ## Prerequisites
 All of these demo require a *Microsoft Azure Subscription*.
@@ -90,13 +90,12 @@ client.recognizePrintedTextWithHttpOperationResponse(detectOrientation, url)
 ![test.png](/computervision/test.png)
 
 ## Speech Services
-- [Create a Speech Service on Azure]()
-- [Create a Node.js app]()
-- [Run your Node.js app]()
-- [Annexe: Windows Node Sound Player sample]()
+- [Create a Speech Service on Azure](#create-a-speech-service-on-azure)
+- [Create a Node.js app](#create-a-node-js-app-1)
+- [Run your Node.js app](#run-your-node-js-app-1)
+- [Annexe: Windows Node Sound Player sample](#annexe-windows-node-sound-player-sample)
 
 ### Create a Speech Service on Azure
-### Create a Computer Vision service on Azure
 - Connect to Azure Portal: https://portal.azure.com
 - Create a new Speech service
 
@@ -126,7 +125,7 @@ client.recognizePrintedTextWithHttpOperationResponse(detectOrientation, url)
 ``` JavaScript
 const request = require('request');
 const fs = require('fs');
-const winSound = require('./sound.js');
+const sound = require('./sound.js');
 ```
   - Configure the service with the Speech Services API Key, the Azure region where the service was created.
 ``` JavaScript
