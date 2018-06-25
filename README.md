@@ -3,6 +3,7 @@ This repository show how to use Azure Cognitive Services with Node JS in just a 
 
 - [Computer Vision](#computer-vision)
 - [Speech Services](#speech-services)
+- [Natural Langue Processing](#natural-language-processing)
 
 ## Prerequisites
 All of these demo require a *Microsoft Azure Subscription*.
@@ -219,3 +220,81 @@ exports.Play = function Play(file){
   });
 }
 ```
+
+## Natural Language Processing
+- [Create a LUIS application on Azure](#create-a-luis-application-on-azure)
+- [Create a python application](#create-a-python-application)
+- [Run your python application](#run-your-python-application)
+
+### Create a LUIS application on Azure
+- Go to the European LUIS website : https://eu.luis.ai/home and connect with a Microsoft Login
+- Create a new app, choose a language, such as `French` (*FYI: many built-in functionalities are available only in English*)
+- Create a new `Intent` such as `GetJobInformation`
+- Insert few sentences in this intent
+```text
+Est-ce qu'il y a eu de nouvelles annonces d'emploi postées aujourd'hui ?
+Quels postes sont disponibles pour des ingénieurs senior ?
+Est-ce qu'il y a des postes en lien avec des bases de données ?
+Je recherche un nouvel emploi avec des responsabilités dans la comptabilité
+Quelle est la liste des offres d'emploi ?
+Où est la liste des offres d'emploi ?
+Nouveaux emplois ?
+Nouveaux postes ?
+Est-ce qu'il y a de nouvelles offres d'emploi dans un bureau à paris ?
+Je cherche un travail
+Un poste pour un développeur ?
+Un poste pour un développeur Node.js ?
+Est-ce que tu as du travail pour moi ?
+Je veux un poste de développeur back end
+Je cherche un poste de chef de projet
+Je cherche un poste de développeur web
+```
+- Identify some `Entities` to be able to determine the main subject of the intents
+- Insert also few sentences in the `None` intent to show which kind of sentence should be ignored
+```text
+Les aboiements des chiens sont gênants
+Commande moi une pizza
+Les pingouins sont dans l'océan
+Aujourd'hui j'ai mangé une pomme
+```
+- Click on `Train` to build the model
+- Click on `Publish` to make it available publicly
+- You can use the Starter_Key to try your model (For production workload, it is recommended to create a Service Endpoint on Azure and use it in LUIS portal)
+
+### Create a python application
+- Create a virtual environment using `python -m venv luis` (*where `luis` is the name of your python application*)
+- Activate your venv using `Scripts\activate.bat`
+- Install `requests` python package using `pip install requests` (*Python 3.6*)
+- Create a new file `run.py`
+- Add an import to the requests package
+```python
+import requests
+```
+- Create a `headers` object with a header named `Ocp-Apim-Subscription-Key`, and use the value of your Subscription Key
+```python
+headers = {
+    'Ocp-Apim-Subscription-Key': '{{MY_SERVICE_KEY}}',
+}
+azureregion = "westeurope"
+applicationid = "{{MY_APP_ID}}"
+```
+- Create a `params` object with a parameter named `q`, meaning query and specify a sentence you would like to analyze
+```python
+params = {
+    'q': 'Je cherche un poste de développeur front'
+}
+```
+- Send the request to the api and print the result
+```python
+try:
+    r = requests.get("https://{0}.api.cognitive.microsoft.com/luis/v2.0/apps/{1}" format(azureregion, applicationid), headers=headers, params=params)
+    print(r.json())
+
+except Exception as e:
+    print("[Errno {0}] {1}".format(e.errno, e.strerror))
+```
+
+### Run your python application
+- Run `python run.py` and check that your app correctly recognized the intent
+
+![nlp_11.png](/wiki/assets/nlp_11.png)
