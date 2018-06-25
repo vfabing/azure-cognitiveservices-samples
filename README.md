@@ -3,6 +3,7 @@ This repository show how to use Azure Cognitive Services with Node JS in just a 
 
 - [Computer Vision](#computer-vision)
 - [Speech Services](#speech-services)
+- [Natural Langue Processing](#natural-language-processing)
 
 ## Prerequisites
 All of these demo require a *Microsoft Azure Subscription*.
@@ -221,11 +222,14 @@ exports.Play = function Play(file){
 ```
 
 ## Natural Language Processing
+- [Create a LUIS application on Azure](#create-a-luis-application-on-azure)
+- [Create a python application](#create-a-python-application)
+- [Run your python application](#run-your-python-application)
 
 ### Create a LUIS application on Azure
 - Go to the European LUIS website : https://eu.luis.ai/home and connect with a Microsoft Login
-- Create a new app, choose a language, such as `French` (FYI: many built-in functionalities are available in English)
-- Create a new Intent such as `GetJobInformation`
+- Create a new app, choose a language, such as `French` (*FYI: many built-in functionalities are available only in English*)
+- Create a new `Intent` such as `GetJobInformation`
 - Insert few sentences in this intent
 ```text
 Est-ce qu'il y a eu de nouvelles annonces d'emploi postées aujourd'hui ?
@@ -245,7 +249,7 @@ Je veux un poste de développeur back end
 Je cherche un poste de chef de projet
 Je cherche un poste de développeur web
 ```
-- Identify some Entities to be able to determine the main subject of the intents
+- Identify some `Entities` to be able to determine the main subject of the intents
 - Insert also few sentences in the `None` intent to show which kind of sentence should be ignored
 ```text
 Les aboiements des chiens sont gênants
@@ -253,14 +257,14 @@ Commande moi une pizza
 Les pingouins sont dans l'océan
 Aujourd'hui j'ai mangé une pomme
 ```
-- Click on Train to build the model
-- Click on Publish to make it available publicly
+- Click on `Train` to build the model
+- Click on `Publish` to make it available publicly
 - You can use the Starter_Key to try your model (For production workload, it is recommended to create a Service Endpoint on Azure and use it in LUIS portal)
 
 ### Create a python application
-- Create a virtual environment using `python -m venv luis` (where luis is the name of your python application)
-- Activate your venv using `Scripts\activate.bat
-- Install `requests` python package using `pip install requests` (Python 3.6)
+- Create a virtual environment using `python -m venv luis` (*where `luis` is the name of your python application*)
+- Activate your venv using `Scripts\activate.bat`
+- Install `requests` python package using `pip install requests` (*Python 3.6*)
 - Create a new file `run.py`
 - Add an import to the requests package
 ```python
@@ -292,3 +296,5 @@ except Exception as e:
 
 ### Run your python application
 - Run `python run.py` and check that your app correctly recognized the intent
+
+![nlp_11.png](/wiki/assets/nlp_11.png)
