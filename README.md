@@ -3,7 +3,7 @@ This repository show how to use Azure Cognitive Services with Node JS in just a 
 
 - [Computer Vision](#computer-vision)
 - [Speech Services](#speech-services)
-- [Natural Langue Processing](#natural-language-processing)
+- [Natural Language Processing](#natural-language-processing)
 
 ## Prerequisites
 All of these demo require a *Microsoft Azure Subscription*.
@@ -259,7 +259,7 @@ Aujourd'hui j'ai mangé une pomme
 ```
 - Click on `Train` to build the model
 - Click on `Publish` to make it available publicly
-- You can use the Starter_Key to try your model (For production workload, it is recommended to create a Service Endpoint on Azure and use it in LUIS portal)
+- You can use the `Starter_Key` to try your model (*For production workload, it is recommended to create a Service Endpoint on Azure and use it in LUIS portal*)
 
 ### Create a python application
 - Create a virtual environment using `python -m venv luis` (*where `luis` is the name of your python application*)
