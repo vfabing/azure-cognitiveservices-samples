@@ -297,4 +297,4 @@ except Exception as e:
 ### Run your python application
 - Run `python run.py` and check that your app correctly recognized the intent
 
-![nlp_11.png](/wiki/assets/nlp_11.png)
+![nlp_11.PNG](/wiki/assets/nlp_11.PNG)
