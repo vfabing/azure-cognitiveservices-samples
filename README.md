@@ -1,9 +1,9 @@
 # azure-cognitiveservices-samples
 This repository show how to use Azure Cognitive Services with Node JS or Python in just a few lines of code.
 
-- [Computer Vision](#computer-vision) (Node.js)
-- [Speech Services](#speech-services) (Node.js)
-- [Natural Language Processing](#natural-language-processing) (Python)
+- [Computer Vision](#computer-vision) (*Node.js*)
+- [Speech Services](#speech-services) (*Node.js*)
+- [Natural Language Processing](#natural-language-processing) (*Python*)
 
 ## Prerequisites
 All of these demo require a *Microsoft Azure Subscription*.
