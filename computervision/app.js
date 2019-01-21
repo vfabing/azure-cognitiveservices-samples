@@ -10,7 +10,7 @@ let detectOrientation = true;
 
 // API Client Access
 let credentials = new CognitiveServicesCredentials(serviceKey);
-let client = new ComputerVisionAPIClient(credentials, azureRegion);
+let client = new ComputerVisionAPIClient(credentials, 'https://westeurope.api.cognitive.microsoft.com');
 
 // Image access
 // let fileStream = fs.createReadStream('test.png');

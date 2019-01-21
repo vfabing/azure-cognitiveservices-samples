@@ -50,7 +50,7 @@ let detectOrientation = true;
   - Create then a `CognitiveServicesCredentials` to access the API, and create a new `ComputerVisionAPIClient` to access the Computer Vision API
 ``` JavaScript
 let credentials = new CognitiveServicesCredentials(serviceKey);
-let client = new ComputerVisionAPIClient(credentials, azureRegion);
+let client = new ComputerVisionAPIClient(credentials, 'https://westeurope.api.cognitive.microsoft.com');
 ```
   - Specify where to retrieve the image to analyze, either by creating a Stream from a file on your computer or by using an url
 ``` JavaScript
