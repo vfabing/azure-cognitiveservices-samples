@@ -101,7 +101,7 @@ client.recognizePrintedTextWithHttpOperationResponse(detectOrientation, url)
 - Create a new Speech service
 
 ![speech_01.png](/wiki/assets/speech_01.png)
-- Get your Computer Vision API Keys
+- Get your Speech Service API Keys
 
 ![speech_02.png](/wiki/assets/speech_02.png)
 
