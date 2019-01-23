@@ -287,7 +287,7 @@ params = {
 - Send the request to the api and print the result
 ```python
 try:
-    r = requests.get("https://{0}.api.cognitive.microsoft.com/luis/v2.0/apps/{1}" format(azureregion, applicationid), headers=headers, params=params)
+    r = requests.get("https://{0}.api.cognitive.microsoft.com/luis/v2.0/apps/{1}".format(azureregion, applicationid), headers=headers, params=params)
     print(r.json())
 
 except Exception as e:
