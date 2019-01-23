@@ -1,8 +1,8 @@
 {
-  "name": "Sandbox",
+  "name": "computervision",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,8 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "azure-cognitiveservices-computervision": "^1.0.1",
-    "fs": "0.0.1-security",
-    "ms-rest-azure": "^2.5.5"
+    "azure-cognitiveservices-computervision": "^3.2.0",
+    "ms-rest-azure": "^2.6.0"
   }
 }
