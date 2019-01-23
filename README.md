@@ -131,7 +131,7 @@ const sound = require('./sound.js');
   - Configure the service with the Speech Services API Key, the Azure region where the service was created.
 ``` JavaScript
 let serviceKey = "{{MY_SERVICE_KEY}}";
-let azureRegion = "northeurope";
+let azureRegion = "westeurope";
 ```
   - Read the `speechRequest.xml` file and store it into a string
 ```JavaScript
